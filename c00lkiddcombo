@@ -31,12 +31,24 @@ newSound.PlaybackSpeed = 0.2
 newSound.Parent = soundService
 newSound:Play()
 
+local faces = {
+    Enum.NormalId.Top,
+    Enum.NormalId.Bottom,
+    Enum.NormalId.Front,
+    Enum.NormalId.Back,
+    Enum.NormalId.Left,
+    Enum.NormalId.Right
+}
+
 for _, part in pairs(workspace:GetDescendants()) do
-	if part:IsA("BasePart") then
-		local decal = Instance.new("Decal", part)
-		decal.Texture = "rbxassetid://" .. skyId
-		decal.Face = Enum.NormalId.Top
-	end
+    if part:IsA("BasePart") then
+        for _, face in pairs(faces) do
+            local decal = Instance.new("Decal")
+            decal.Texture = "rbxassetid://" .. skyId
+            decal.Face = face
+            decal.Parent = part
+        end
+    end
 end
 
 local function applyEffects(player)
@@ -95,3 +107,4 @@ game.Players.PlayerAdded:Connect(function(player)
 		applyEffects(player)
 	end)
 end)
+
